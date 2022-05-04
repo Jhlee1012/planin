@@ -1,0 +1,44 @@
+@font-face {
+    font-family: 'pretnedard';
+    src : url(nanumsquare.ttf)
+}
+body { 
+    position: relative;
+    width: 1440px;
+    height: 1024px;
+    background: #F4F4F4;
+}
+.external-cal-link{
+
+}
+.leftwing {
+    display : flex;
+    position : absolute;
+    width : 300px;
+    height : 813px;
+}
+
+.p_cal {
+    display : flex;
+    position: absolute;
+    left: 0%;
+    right: 0%;
+    top: 0%;
+    bottom: 0%;
+    background: #FFFFFF;
+    box-shadow: 25px 25px 100px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+button {
+    display : flex;
+    position: absolute;
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
