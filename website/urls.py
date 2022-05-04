@@ -24,4 +24,5 @@ urlpatterns = [
     path('landing/', include('landing.urls')),
     path('settings/', include('settings.urls')),
     path('calendar/', include('viewer_cal.urls')),
+    path('models_test/', include('models_test.urls')),
 ] +static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
