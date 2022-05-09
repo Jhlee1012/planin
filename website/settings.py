@@ -35,7 +35,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'landing',
-    'settings',
+    'user_settings',
     'viewer_cal',
     'django.contrib.admin',
     'django.contrib.auth',
