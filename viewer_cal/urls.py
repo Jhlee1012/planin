@@ -5,4 +5,5 @@ app_name = "viewer_cal"
 
 urlpatterns = [
     path('',views.calendar),
+    path("test-fetch/", views.test_fetch)
 ]

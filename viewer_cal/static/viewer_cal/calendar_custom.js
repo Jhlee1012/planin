@@ -47,23 +47,27 @@ window.onload = () => {
     calendar.render();
 
   
-// new Draggable(containerEl, {
-//     itemSelector: '.item-class'
-//   });
+    // new Draggable(containerEl, {
+    //     itemSelector: '.item-class'
+    //   });
 
-// 신규 이벤트 세팅 - 외부에서 드래그 앤 드롭
-let eventEl = document.getElementById('external-events-list');
-let dragPalette = new FullCalendar.Draggable(eventEl, {
-    itemSelector: '.fc-event',
-    eventData: 
-    function(eventEl) {
-        return {
-            title: eventEl.innerText.trim(),
-            duration: '01:00',
+    // 신규 이벤트 세팅 - 외부에서 드래그 앤 드롭
+    let eventEl = document.getElementById('external-events-list');
+    let dragPalette = new FullCalendar.Draggable(eventEl, {
+        itemSelector: '.fc-event',
+        eventData: 
+        function(eventEl) {
+            return {
+                title: eventEl.innerText.trim(),
+                duration: '01:00',
+            }
         }
-    }
-});
-dragPalette.render();
+    });
+    dragPalette.render();
+    
+    addEventAllDay("2022-05-02", "2022-05-04", "qwer");
+    addEventAllDay("2022-05-02", "2022-05-04", "asdf");
+    addEventAllDay("2022-05-02", "2022-05-04", "zxcv");
 
 }
 
@@ -79,7 +83,7 @@ function showCalendarof(){
             start : '2022-05-8T16:00:00', 
             end : '2022-05-8T18:00:00',
         })
-        };
+    };
 }
 
 
@@ -104,11 +108,6 @@ function addEventAllDay(start, end, display){
 }
 
 
-addEventAllDay("2022-05-02", "2022-05-04", "qwer");
-addEventAllDay("2022-05-02", "2022-05-04", "asdf");
-addEventAllDay("2022-05-02", "2022-05-04", "zxcv");
-
-
 
 function sendAllEvents(){
     let allEvents = calendar.getEvents();
@@ -123,9 +122,25 @@ function sendAllEvents(){
     });
 
     // 이거 대신에 월요일에 할 Fetch
-    payload.events.forEach(eventPayload => {
-        alert(`${eventPayload.start}, ${eventPayload.end}`);
-    })
+    // payload.events.forEach(eventPayload => {
+    //     alert(`${eventPayload.start}, ${eventPayload.end}`);
+    // })
+    console.log(payload.events);
+    fetch("/calendar/test-fetch/", {
+        method: "POST",
+        body: JSON.stringify(payload),
+        headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": getCsrfToken(),
+        }
+    }).then(response => console.log(response.status))
+    .catch(error => alert(error))
+}
+
+function getCsrfToken() {
+    return document.cookie.split("&")
+        .find(item => item.includes("csrftoken"))
+        .split("=")[1];
 }
 
 // 업무시간 설정 
