@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import mimetypes
+mimetypes.add_type("text/css", ".css", True)
+mimetypes.add_type("text/html", ".html", True)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -83,10 +86,10 @@ DATABASES = {
     # }
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'HOST' : 'aws-test.cz1meqdda4p7.us-west-2.rds.amazonaws.com',
+        'HOST' : 'django.cbf2lc2jetbl.ap-northeast-2.rds.amazonaws.com',
         'PORT' : '3306',
-        'NAME' : 'demo_rds',
-        'USER' : 'demouser',
+        'NAME' : 'django',
+        'USER' : 'newuser',
         'PASSWORD' : "1234",
     }
 }
@@ -128,7 +131,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = 'static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

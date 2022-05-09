@@ -1,0 +1,7 @@
+#calendar-container {
+    width: 75vw;
+}
+
+.fc-daygrid-event {
+    width : 8vw;
+}
