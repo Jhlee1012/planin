@@ -1,9 +1,9 @@
 from django.urls import path
 from . import views 
 
-app_name = "viewer_cal"
+app_name = "calendar"
 
 urlpatterns = [
     path('',views.calendar),
-    path("test-fetch/", views.test_fetch)
+    path("test/", views.model_test)
 ]

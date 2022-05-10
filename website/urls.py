@@ -22,6 +22,5 @@ from django.conf import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('landing/', include('landing.urls')),
-    path('settings/', include('user_settings.urls')),
-    path('calendar/', include('viewer_cal.urls')),
+    path('calendar/', include('calendar.urls')),
 ] +static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

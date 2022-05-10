@@ -35,8 +35,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'landing',
-    'user_settings',
-    'viewer_cal',
+    'calendar',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -80,18 +79,18 @@ WSGI_APPLICATION = 'website.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': BASE_DIR / 'db.sqlite3',
-    # }
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'HOST' : 'django.cbf2lc2jetbl.ap-northeast-2.rds.amazonaws.com',
-        'PORT' : '3306',
-        'NAME' : 'django',
-        'USER' : 'newuser',
-        'PASSWORD' : "1234",
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'HOST' : 'django.cbf2lc2jetbl.ap-northeast-2.rds.amazonaws.com',
+    #     'PORT' : '3306',
+    #     'NAME' : 'django',
+    #     'USER' : 'newuser',
+    #     'PASSWORD' : "1234",
+    # }
 }
 
 
