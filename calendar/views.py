@@ -18,20 +18,19 @@ def test_fetch(request):
         print(event.get("end"))
     return JsonResponse({})
 
-## 삭제 테스트 - 왜 안되지..?
-# def model_test(request,user_id):
-#     users = User.objects.get(id = user_id)
-#     for user in users :
-#         delete_user(user)
-#         user = user+1
+# 삭제 테스트 - 왜 안되지..?
+def model_test(request):
+    users = User.objects.all()
+    for user in users :
+        delete_user(user.id)
 
-#     return HttpResponse(users)
+    return HttpResponse(users)
 
 ## create test
 
-def model_test(request):
-    new_event = create_event("my_evet","2022-05-08 16:00:00","2022-05-08 18:00:00","이진현","김비안,김지석")
-    return HttpResponse(new_event)
+# def model_test(request):
+#     new_event = create_event("my_evet","2022-05-08 16:00:00","2022-05-08 18:00:00","이진현","김비안,김지석")
+#     return HttpResponse(new_event)
 
 #CRUD - C
 
@@ -54,6 +53,12 @@ def create_event(title,start_date,end_date,owner_id,shared_users) :
     new_event.shared_users = get_object_or_404(shared_users,id=shared_users)
     new_event.save()
     return new_event
+
+def get_user(menu_id):
+    menu = get_object_or_404(Menu, id=menu_id)
+    diner = menu.diner
+    print(f"this menu is for: {diner.name}")    
+
 
 def delete_user(user_id):
     a_user=User.objects.get(id = user_id)
