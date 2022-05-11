@@ -2,6 +2,8 @@ from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse, HttpResponseNotFound, JsonResponse
 from calendar.models import *
 
+# from calendar.create_models import * -> 다른 모델에서 함수 가져오기 나중에 정리용 
+
 # Create your views here.
 
 def calendar(request):
@@ -18,19 +20,11 @@ def test_fetch(request):
         print(event.get("end"))
     return JsonResponse({})
 
-# 삭제 테스트 - 왜 안되지..?
+
+
 def model_test(request):
-    users = User.objects.all()
-    for user in users :
-        delete_user(user.id)
-
-    return HttpResponse(users)
-
-## create test
-
-# def model_test(request):
-#     new_event = create_event("my_evet","2022-05-08 16:00:00","2022-05-08 18:00:00","이진현","김비안,김지석")
-#     return HttpResponse(new_event)
+    new_event = create_event("my_evet","2022-05-08 16:00:00","2022-05-08 18:00:00", 1)
+    return HttpResponse(new_event)
 
 #CRUD - C
 
@@ -44,23 +38,48 @@ def create_user(name,gmail,events) :
     return new_user 
 
 
-def create_event(title,start_date,end_date,owner_id,shared_users) :
+def create_event(title,start_date,end_date,owner_id, shared_user_ids=[]) :
     new_event = Event()
     new_event.title = title
     new_event.start_date = start_date
     new_event.end_date = end_date
-    new_event.owner = get_object_or_404(User,id=owner_id)
-    new_event.shared_users = get_object_or_404(shared_users,id=shared_users)
-    new_event.save()
+    new_event.owner = get_object_or_404(User, id=owner_id)
     return new_event
+#     for shared_id in shared_user_ids:
+#         new_event.shared_users.add(get_object_or_404(User, id=shared_id))
+#     new_event.save()
+#     
 
-def get_user(menu_id):
-    menu = get_object_or_404(Menu, id=menu_id)
-    diner = menu.diner
-    print(f"this menu is for: {diner.name}")    
+
+def add_shared_user_to_event(event_id, user_id):
+    target_event = get_object_or_404(Event, id=event_id)
+    target_event.shared_users.add(get_object_or_404(User, id=user_id))
+    target_event.save()
+
+
+def get_user(user_id):
+    a_user=User.objects.get(id = user_id)
+    # user_events = Event.objects.get(id = user_id)
+    print(f"this user is : {a_user.name}") 
+    # print(f"User's events : {user_events.events}")   
+
+def get_evnet(event_id):
+    a_event=Event.objects.get(id = event_id)
+    all_events = Event.objects.all()
+    print(f"this event is : {a_event.title},") 
+    # print(f"User's events : {user_events.events}")   
 
 
 def delete_user(user_id):
     a_user=User.objects.get(id = user_id)
     a_user.delete()
     return 
+
+#유저 다 지우기
+#     users = User.objects.all()
+#     for user in users :
+#         delete_user(user.id)
+
+#     return HttpResponse(users)
+
+## create test
