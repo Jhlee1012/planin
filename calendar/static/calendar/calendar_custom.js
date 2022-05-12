@@ -1,10 +1,9 @@
 let calendar;
-
-
+let dragPalette;
 
 window.onload = () => {
     let calendarEl = document.getElementById('calendar');
-
+    
     calendar = new FullCalendar.Calendar(calendarEl, {
         scrollTime: '08:00:00',
         businessHours : false,
@@ -20,7 +19,7 @@ window.onload = () => {
         themeSystem: 'bootstrap5',
         //timeZone: 'GMT+9',
         initialView: 'timeGridWeek',
-        initialDate: '2022-05-10', // duratin one week ?
+        firstDay: (new Date().getDay()), // duratin one week ?
         headerToolbar: {
             left: 'prev,next',
             center: 'title',
@@ -34,6 +33,7 @@ window.onload = () => {
               },
 
         ],
+        
         //일정 삭제 버튼 
         // eventDidMount: function(info) {
         //     let eventElement = document.querySelector('fc-timegrid-event');
@@ -46,29 +46,39 @@ window.onload = () => {
 
     calendar.render();
 
-  
-    // new Draggable(containerEl, {
-    //     itemSelector: '.item-class'
-    //   });
-
     // 신규 이벤트 세팅 - 외부에서 드래그 앤 드롭
     let eventEl = document.getElementById('external-events-list');
-    let dragPalette = new FullCalendar.Draggable(eventEl, {
+    dragPalette = new FullCalendar.Draggable(eventEl, {
         itemSelector: '.fc-event',
-        eventData: 
-        function(eventEl) {
+        eventData: function(eventEl) {
             return {
                 title: eventEl.innerText.trim(),
                 duration: '01:00',
             }
         }
     });
-    dragPalette.render();
     
-    addEventAllDay("2022-05-02", "2022-05-04", "qwer");
-    addEventAllDay("2022-05-02", "2022-05-04", "asdf");
-    addEventAllDay("2022-05-02", "2022-05-04", "zxcv");
+    // dragPalette.render();
 
+    function setDuration (eventPalette){
+        // let EventPalette = eventEl
+        // if eventEl.eventData.duration = 
+    }
+
+
+    // AllDay 이벤트 세팅 - 외부에서 드래그 앤 드롭
+   
+    let eventElAllDay = document.getElementById('external-events-list-all-day');
+    dragPaletteAllDay = new FullCalendar.Draggable(eventElAllDay, {
+        itemSelector: '.fc-event',
+        eventData: function(eventElAllDay) {
+            return {
+                title: eventElAllDay.innerText.trim(),
+                allDay: true,
+            }
+        }
+    });
+    
 }
 
 
@@ -94,6 +104,11 @@ function promptBasedEvent(){
     addEventAllDay(start, end, display);
 }
 
+
+// addEventAllDay("2022-05-02", "2022-05-04", "qwer");
+// addEventAllDay("2022-05-02", "2022-05-04", "asdf");
+// addEventAllDay("2022-05-02", "2022-05-04", "zxcv");
+
 let id = 0;
 function addEventAllDay(start, end, display){
     calendar.addEvent({
@@ -105,42 +120,6 @@ function addEventAllDay(start, end, display){
     });
 
     id += 1;
-}
-
-
-
-function sendAllEvents(){
-    let allEvents = calendar.getEvents();
-    let payload = {
-        events: [],
-    }
-    allEvents.forEach(eventData => {
-        payload.events.push({
-            start: eventData.start,
-            end: eventData.end,
-        })
-    });
-
-    // 이거 대신에 월요일에 할 Fetch
-    // payload.events.forEach(eventPayload => {
-    //     alert(`${eventPayload.start}, ${eventPayload.end}`);
-    // })
-    console.log(payload.events);
-    fetch("/calendar/test-fetch/", {
-        method: "POST",
-        body: JSON.stringify(payload),
-        headers: {
-            "Content-Type": "application/json",
-            "X-CSRFToken": getCsrfToken(),
-        }
-    }).then(response => console.log(response.status))
-    .catch(error => alert(error))
-}
-
-function getCsrfToken() {
-    return document.cookie.split("&")
-        .find(item => item.includes("csrftoken"))
-        .split("=")[1];
 }
 
 // 업무시간 설정 
@@ -189,12 +168,12 @@ function removeEventsInBuisness() {
      });
  }
 
-//일정조저기간
+//일정조정기간
+
+let new_startDate = document.getElementById('adjustable-date-start');
+let new_endDate = document.getElementById('adjustable-date-end');
 
 function setBackgroundTime(){
-        let startDate = document.getElementById('adjustable-date').value;
-        calendar.gotoDate(startDate);
-        calendar.render();  
-
+        calendar.setOption('firstDay',Date(new_startDate).getDay());
 }
 

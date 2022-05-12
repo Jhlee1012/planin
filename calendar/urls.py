@@ -5,5 +5,6 @@ app_name = "calendar"
 
 urlpatterns = [
     path('',views.calendar),
-    path("test/", views.model_test)
+    path("save-events/", views.save_events),
+    #path("test/<int:user_id>", views.test_show_user_name,name = "test_page"),
 ]
