@@ -3,7 +3,6 @@ from django.db import models
 
 # Create your models here.
 
-#CRUD - C
 class User(models.Model) :
     name = models.CharField(max_length=32)
     gmail = models.EmailField(max_length=254)

@@ -32,6 +32,14 @@ function drawCalendar() {
         },
         events : [
             {
+                title : "디폴트 일정1",
+                start : "2022-05-14 12:00:00",
+                end : "2022-05-14 13:00:00"
+            },
+            {
+                title : "디폴트 일정2",
+                start : "2022-05-15 11:00:00",
+                end : "2022-05-14 15:00:00"
             },
         ],
         // 신규 이벤트 생성 
@@ -61,7 +69,7 @@ function drawCalendar() {
     calendar.render();
 }
 
-
+//일정 제출하기
 async function sendAllEvents(){
     let allEvents = calendar.getEvents();
     
@@ -69,6 +77,9 @@ async function sendAllEvents(){
         events: [],
     };
     allEvents.forEach(eventData => {
+        console.log(eventData.title);
+        console.log(eventData.start);
+        console.log(eventData.end);
         payload.events.push({
             "title" : eventData.title,
             "start": eventData.start,
@@ -80,10 +91,10 @@ async function sendAllEvents(){
     let result = await eventsToModel(payload);
     
     if (!result){
-        alert("일정 제출에 실패했습니다!!!ㅜㅜㅠㅜㅠㅜㅠ");
+        alert("일정 제출에 실패했습니다.");
         return;
     }
-    alert('일정 제출이 완료되었습니다???.');
+    alert('일정 제출이 완료되었습니다.');
     
     //제출하기 버튼이 수정하기로 변하기 
     // const element = document.getElementById("data-upload");
@@ -112,3 +123,33 @@ function getCsrfToken() {
         .split("=")[1];
 }
 
+// 일정 보여주기 
+ // 버튼이 선택이 되면
+function showCalendarof(){
+    // 모델에서 이진현의 일정 가져오기 -딕셔너리 리스트 
+    getEventList().then(eventList => {
+    // getEventList().then(function logEvent(eventList) {
+        for (const e of eventList.events) {
+            console.log(e);
+            calendar.addEvent(e);
+        }
+    });
+    // 캘린더 위에 이진현의 일정 보여주기 - 각 딕셔너리를 이벤트에 요소로 하나씩 추가 
+}
+// 일정을 가져오고
+// 일정을 title , start, end 형태로 변환 
+async function getEventList(){
+    let response = await fetch("/calendar/load-events/");
+    if (response.status == 200){
+        let responseBody = await response.json();
+        console.log(responseBody);
+        return responseBody;
+    }
+}
+// 
+    // for eventEl of eventlist 
+    //     start: eventEl.start_date,
+    //     end: eventEl.end_date,
+    //     calendar.addEvent({
+    
+   

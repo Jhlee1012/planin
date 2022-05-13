@@ -29,11 +29,11 @@ def save_events(request):
     return JsonResponse({})
 
 
-def create_event(title,start_date,end_date) :
-    new_event = Event()
-    new_event.title = title
-    new_event.start_date = start_date
-    new_event.end_date = end_date
-    #new_event.owner = get_object_or_404(User, id= owner_id)
-    new_event.save()
-    # print(new_event.owner.id, new_event.owner.name)
+def test_load_events(request) :
+    jinhyun_events = Event.objects.filter(owner_id=16) #쿼리셋
+    event_list = list(jinhyun_events.values('title','start_date','end_date'))
+    print(event_list) # [{'title': '치맥', 'start_date': datetime.datetime(2022, 5, 8, 16, 0, tzinfo=<UTC>), 'end_date': datetime.datetime(2022, 5, 8, 18, 0, tzinfo=<UTC>)}, {'title': '치맥', 'start_date': datetime.datetime(2022, 5, 14, 2, 0, tzinfo=<UTC>), 'end_date': datetime.datetime(2022, 5, 14, 4, 0, tzinfo=<UTC>)}]
+    return JsonResponse({
+        "events" : event_list
+    })
+    # return HttpResponse(render(request,'calendar.html',test_jinhyun))
