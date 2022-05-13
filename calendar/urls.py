@@ -7,6 +7,6 @@ app_name = "calendar"
 urlpatterns = [
     path('',views.calendar),
     path("save-events/", views.save_events),
-    path('load-events/', views.test_load_events),
+    path('load-events/', views.load_events),
     #path("test/<int:user_id>", views.test_show_user_name,name = "test_page"),
 ]

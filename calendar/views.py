@@ -29,11 +29,17 @@ def save_events(request):
     return JsonResponse({})
 
 
-def test_load_events(request) :
-    jinhyun_events = Event.objects.filter(owner_id=16) #쿼리셋
-    event_list = list(jinhyun_events.values('title','start_date','end_date'))
-    print(event_list) # [{'title': '치맥', 'start_date': datetime.datetime(2022, 5, 8, 16, 0, tzinfo=<UTC>), 'end_date': datetime.datetime(2022, 5, 8, 18, 0, tzinfo=<UTC>)}, {'title': '치맥', 'start_date': datetime.datetime(2022, 5, 14, 2, 0, tzinfo=<UTC>), 'end_date': datetime.datetime(2022, 5, 14, 4, 0, tzinfo=<UTC>)}]
+def load_events(request) :
+    # user_id ? 
+    event_owner = Event.objects.filter(owner_id = 16)
+    event_list = list(event_owner.values('title','start_date','end_date'))
     return JsonResponse({
         "events" : event_list
     })
-    # return HttpResponse(render(request,'calendar.html',test_jinhyun))
+
+# def load_events_of_hannah(request) :
+#     hannah_events = Event.objects.filter(owner_id = 17)
+#     event_list = list(hannah_events.values('title','start_date','end_date'))
+#     return JsonResponse({
+#         "events" : event_list
+#     })

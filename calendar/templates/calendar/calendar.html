@@ -30,11 +30,10 @@
           <span class="slider round"></span>
       </label>
    </div>
-    <!-- shared calendar label 이 뭐지..?-->
+    <!-- shared calendar -->
     <label for = "showcalendar"> 
-        <input type = "checkbox" id="showcalendar-jinhyun" name="showcalendar"  onclick="showCalendarof()"> 내 일정
-        <input type = "checkbox" id="showcalendar-hannah" name="showcalendar" onclick="showCalendarof()" > 오한나
-        <input type = "checkbox" id="showcalendar-seungmin" name="showcalendar" onclick="showCalendarof()" > 지승민
+        <input type = "checkbox" id="showcalendar-jinhyun" name="showcalendar"  onclick="addEventof()"> 내 일정
+        <input type = "checkbox" id="showcalendar-hannah" name="showcalendar" onclick="addEventof()" > 오한나의 일정
     </label>
 </div>
 
@@ -58,6 +57,6 @@
   <div id="calendar"></div>
 </div>
 <!-- <button onclick="promptBasedEvent()">추가하기</button>  -->
-<button id = "data-upload" onclick="sendAllEvents()">제출하기</button>
+<button id = "data-load" onclick="sendAllEvents()">제출하기</button>
 </body>
 </html>

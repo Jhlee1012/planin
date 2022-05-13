@@ -13,3 +13,4 @@ class Event(models.Model) :
     end_date = models.DateTimeField() #%Y-%m-%d %H:%M:%S
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="events", null=True, blank=True)
     shared_users = models.ManyToManyField(User, related_name="shared_events") 
+

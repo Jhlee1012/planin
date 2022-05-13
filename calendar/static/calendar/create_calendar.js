@@ -31,16 +31,6 @@ function drawCalendar() {
             right: 'today',
         },
         events : [
-            {
-                title : "디폴트 일정1",
-                start : "2022-05-14 12:00:00",
-                end : "2022-05-14 13:00:00"
-            },
-            {
-                title : "디폴트 일정2",
-                start : "2022-05-15 11:00:00",
-                end : "2022-05-14 15:00:00"
-            },
         ],
         // 신규 이벤트 생성 
         selectable: true,
@@ -123,29 +113,49 @@ function getCsrfToken() {
         .split("=")[1];
 }
 
-// 일정 보여주기 
- // 버튼이 선택이 되면
-function showCalendarof(){
-    // 모델에서 이진현의 일정 가져오기 -딕셔너리 리스트 
-    getEventList().then(eventList => {
-    // getEventList().then(function logEvent(eventList) {
+//일정을 캘린더에 추가하기 
+function addEventof(){
+    loadEventList().then(eventList => {
         for (const e of eventList.events) {
-            console.log(e);
-            calendar.addEvent(e);
+            let eventData = {
+                start: e.start_date,
+                end: e.end_date,
+                title: e.title,
+            }
+            calendar.addEvent(eventData);
         }
-    });
-    // 캘린더 위에 이진현의 일정 보여주기 - 각 딕셔너리를 이벤트에 요소로 하나씩 추가 
+        
+    })
 }
-// 일정을 가져오고
-// 일정을 title , start, end 형태로 변환 
-async function getEventList(){
-    let response = await fetch("/calendar/load-events/");
+
+//각 사람들의 일정을 보여주기 
+function showCalendarof(){
+
+}
+
+
+
+async function loadEventList(){
+    let response = await fetch('/calendar/load-events/');
     if (response.status == 200){
         let responseBody = await response.json();
-        console.log(responseBody);
-        return responseBody;
+        return responseBody;        
+    }else {
+        alert('오류발생')
     }
 }
+
+
+
+// allEvents.forEach(eventData => {
+//     console.log(eventData.title);
+//     console.log(eventData.start);
+//     console.log(eventData.end);
+//     payload.events.push({
+//         "title" : eventData.title,
+//         "start": eventData.start,
+//         "end" : eventData.end,
+//     })
 // 
     // for eventEl of eventlist 
     //     start: eventEl.start_date,
